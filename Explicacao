@@ -1,0 +1,76 @@
+Xmls
+ConstraintLayout: Este é o layout principal, utilizado para organizar os elementos na tela.
+
+TextView com id "titulo": Exibe o título "Calculadora de IMC".
+
+TextInputEditText com id "etPeso": Um campo de texto onde o usuário digita o peso.
+
+TextInputEditText com id "etAltura": Outro campo de texto onde o usuário digita a altura.
+
+Button com id "btnCalcular": Um botão que, quando clicado, calculará o IMC.
+
+TextView com id "tvResultado": Um campo de texto onde o resultado do cálculo (IMC e categoria) será exibido.
+
+
+Kotlin: 
+
+Importações:
+
+import android.os.Bundle: Necessário para o ciclo de vida da activity.
+
+import android.widget.Button, EditText, TextView: Usado para interagir com os componentes da interface gráfica.
+
+import androidx.appcompat.app.AppCompatActivity: Importa a classe base para atividades em Android com suporte a compatibilidade.
+
+Classe MainActivity:
+
+MainActivity : AppCompatActivity(): A classe MainActivity herda de AppCompatActivity, que permite criar uma activity (tela) no Android.
+
+Método onCreate:
+
+setContentView(R.layout.activity_main): Define o layout da tela (usando o arquivo XML que você criou anteriormente).
+
+Referência aos componentes de UI:
+
+val etPeso = findViewById<EditText>(R.id.etPeso): Aqui, estamos buscando a referência ao campo de texto onde o usuário digita o peso.
+
+val etAltura = findViewById<EditText>(R.id.etAltura): Similar ao anterior, mas para o campo de altura.
+
+val btnCalcular = findViewById<Button>(R.id.btnCalcular): Referência ao botão de cálculo.
+
+val tvResultado = findViewById<TextView>(R.id.tvResultado): Referência ao TextView onde o resultado será exibido.
+
+Listener do botão btnCalcular:
+
+btnCalcular.setOnClickListener: Este código define o que deve acontecer quando o botão "Calcular IMC" for pressionado. Dentro deste bloco, fazemos as verificações e cálculos:
+
+peso = etPeso.text.toString().toDoubleOrNull(): Convertemos o valor inserido pelo usuário no campo etPeso de String para Double, mas caso o valor não seja um número válido, a conversão retornará null.
+
+altura = etAltura.text.toString().toDoubleOrNull(): A mesma conversão para o campo de altura.
+
+Validação dos valores de peso e altura:
+
+if (peso != null && altura != null && peso > 0 && altura > 0): Verifica se os valores inseridos são válidos (não nulos e maiores que 0).
+
+Se válidos, o IMC é calculado pela fórmula: IMC = peso / altura².
+
+Determinação da categoria do IMC:
+
+Usamos a estrutura when para categorizar o IMC calculado:
+
+IMC < 18.5: Categoria "Abaixo do peso".
+
+IMC entre 18.5 e 24.9: Categoria "Peso normal".
+
+IMC entre 25.0 e 29.9: Categoria "Sobrepeso".
+
+IMC >= 30.0: Categoria "Obesidade".
+
+Exibição do resultado:
+
+tvResultado.text = "IMC: %.2f\nCategoria: $categoria".format(imc): Exibe o IMC calculado e a categoria na tela, com o IMC formatado para 2 casas decimais.
+
+Mensagem de erro:
+
+Caso algum valor seja inválido (por exemplo, o usuário deixou o campo vazio ou colocou um número negativo), é exibida uma mensagem pedindo para o usuário inserir valores válidos.
+
